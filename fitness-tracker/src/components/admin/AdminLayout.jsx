@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Sidebar from './Sidebar';
-import ThemeToggle from './ThemeToggle';
+import NotificationBell from './NotificationBell';
 
 export default function AdminLayout() {
   const location = useLocation();
@@ -11,6 +11,18 @@ export default function AdminLayout() {
   useEffect(() => {
     AOS.refresh();
   }, [location]);
+
+  const getPageTitle = () => {
+    const path = location.pathname;
+    if (path === '/admin' || path === '/admin/dashboard') return 'Dashboard';
+    if (path.includes('/user')) return 'User Profile';
+    if (path.includes('/workouts')) return 'Workout Management';
+    if (path.includes('/nutrition')) return 'Nutrition Tracking';
+    if (path.includes('/progress')) return 'Progress Tracking';
+    if (path.includes('/bmi')) return 'BMI Calculator';
+    if (path.includes('/settings')) return 'Preferences';
+    return '';
+  };
 
   return (
     <div
@@ -21,10 +33,12 @@ export default function AdminLayout() {
       }}
     >
       <Sidebar />
-      <div className="flex-1 p-6 bg-gray-100/70 dark:bg-gray-500/70 backdrop-blur-lg">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold"></h1>
-          <ThemeToggle />
+      <div className="flex-1 p-6 bg-black/80 backdrop-blur-xl">
+        <div className="flex justify-between items-center mb-4 pb-4">
+          <h1 className="text-3xl font-extrabold text-white tracking-tight drop-shadow-sm">
+            {getPageTitle()}
+          </h1>
+          <NotificationBell />
         </div>
         <Outlet />
       </div>

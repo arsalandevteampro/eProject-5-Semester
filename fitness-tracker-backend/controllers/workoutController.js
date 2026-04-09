@@ -14,11 +14,14 @@ const addWorkout = async (req, res) => {
     });
 
     await newWorkout.save();
-    // Create a notification for the user
-    await Notification.create({
-      user: req.user._id,
-      message: "Workout completed successfully!",
-    });
+    
+    // Create a notification if user has workoutReminders enabled
+    if (req.user.settings?.notifications?.workoutReminders !== false) {
+      await Notification.create({
+        user: req.user._id,
+        message: `Workout "${title}" logged successfully!`,
+      });
+    }
     res.status(201).json(newWorkout);
   } catch (err) {
     res

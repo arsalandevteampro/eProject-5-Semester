@@ -4,14 +4,15 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
-  extend: {
-    container: {
-      center: true,
-      padding: '1rem',
+    extend: {
+      container: {
+        center: true,
+        padding: '1rem',
+      },
     },
   },
-},
 
   plugins: [],
 }

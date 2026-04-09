@@ -67,7 +67,7 @@ const Contact = () => {
 
         {/* Glass Form */}
         <form
-          className="backdrop-blur-lg bg-white/10 shadow-xl rounded-2xl p-8 space-y-6 border border-white/20"
+          className="backdrop-blur-lg bg-white/10 shadow-xl rounded-2xl p-8 space-y-6"
           onSubmit={handleSubmit}
           noValidate
         >
@@ -109,7 +109,7 @@ const Contact = () => {
               onChange={(e) =>
                 setFormData({ ...formData, message: e.target.value })
               }
-              className="w-full p-3 rounded-lg bg-white/80 text-black focus:ring-2 focus:ring-green-500 outline-none shadow-md"
+              className="w-full p-3 bg-white/80 text-black focus:ring-2 focus:ring-green-500 outline-none shadow-md"
             />
             {errors.message && (
               <p className="text-red-400 text-sm mt-1">{errors.message}</p>
@@ -118,7 +118,7 @@ const Contact = () => {
 
           <button
             type="submit"
-            className="w-full bg-[var(--primary-400)] hover:bg-[var(--primary-main)] text-white font-semibold py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105"
+            className="w-full bg-[var(--primary-400)] hover:bg-[var(--primary-main)] text-white font-semibold py-3 shadow-lg transition-transform transform hover:scale-105"
           >
             Send Message
           </button>

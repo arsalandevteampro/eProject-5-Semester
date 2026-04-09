@@ -37,9 +37,11 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* optional: keeps background fixed while scrolling */
+  background-attachment: fixed;
+  /* optional: keeps background fixed while scrolling */
   /* background-color: #5a2f0f; */
-  color: #fff; /* make text visible on dark background */
+  color: #fff;
+  /* make text visible on dark background */
 }
 
 
@@ -50,39 +52,59 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* semi-transparent overlay */
+  background: rgba(0, 0, 0, 0.4);
+  /* semi-transparent overlay */
   z-index: -1;
 }
 
-/* ============================ Sign up modal */
+/* ============================ Keyframe animations (referenced by components) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
 
-
-/* Full-screen blurred background */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(6px); /* blur effect */
-  background-color: rgba(0, 0, 0, 0.4); /* semi-dark overlay */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  animation: fadeIn 0.4s ease;
+  to {
+    opacity: 1;
+  }
 }
 
-/* Modal box */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* 
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.70);
+backdrop-filter: blur(8px);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+animation: fadeIn 0.2s ease;
+} */
+
+/* Modal box — dark glassmorphism to match portal */
 .modal-content {
-  background: #ffffff;
+  background: rgba(15, 15, 30, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   padding: 2rem;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
   animation: fadeUp 0.4s ease;
   position: relative;
+  color: #fff;
 }
 
 /* Close button */
@@ -94,23 +116,37 @@ body::before {
   border: none;
   background: transparent;
   cursor: pointer;
-  color: #999;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: #fff;
 }
 
 /* Inputs */
-.signup-form input, .login-form input {
+.signup-form input,
+.login-form input {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
   font-size: 1rem;
   transition: border-color 0.3s;
 }
 
-.signup-form input:focus, .login-form input:focus {
+.signup-form input:focus,
+.login-form input:focus {
   outline: none;
   /* background-color: var(--primary-400); */
+}
+
+.signup-form input::placeholder,
+.login-form input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .modal-title {
@@ -118,32 +154,39 @@ body::before {
   font-size: 2.2rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #ffffff;
 }
 
 /* Button */
-.signup-form button, .login-form button {
+.signup-form button,
+.login-form button {
   width: 100%;
   padding: 0.75rem;
-  /* background-color: #007bff; */
   background-color: var(--primary-400);
   color: #000000;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.signup-form button:hover {
-  /* background-color: #0056b3; */
+.signup-form button:hover,
+.login-form button:hover {
   background-color: var(--primary-main);
+  transform: scale(1.02);
 }
 
 /* Fade and slide animation */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeUp {
@@ -151,6 +194,7 @@ body::before {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -198,9 +242,10 @@ body::before {
   padding: 8px 16px;
   font-size: 1rem;
   border-radius: 8px;
-  color: var(--text-color);
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-weight: 500;
 }
 
 .nav-button:hover {
@@ -267,9 +312,11 @@ body::before {
 .menu-toggle .bar.open:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
+
 .menu-toggle .bar.open:nth-child(2) {
   opacity: 0;
 }
+
 .menu-toggle .bar.open:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
 }
@@ -294,8 +341,8 @@ body::before {
   }
 
   .nav-button {
-  width: 100%;
-}
+    width: 100%;
+  }
 
   .landing-navbar-nav {
     position: absolute;
@@ -339,7 +386,8 @@ body::before {
 .overlay {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.55); /* Dark overlay */
+  background-color: rgba(0, 0, 0, 0.55);
+  /* Dark overlay */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -383,6 +431,7 @@ body::before {
   background-color: var(--primary-dark);
   transform: scale(1.05);
 }
+
 /* ====================================== Slider */
 
 .slider-section {
@@ -411,7 +460,7 @@ body::before {
 
 .slide-overlay h2 {
   font-size: 2.8rem;
-  color : var(--primary-300);
+  color: var(--primary-300);
   margin-bottom: 15px;
   font-weight: bold;
 }
@@ -427,6 +476,7 @@ body::before {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -441,7 +491,8 @@ body::before {
   padding: 80px 20px;
   text-align: center;
   height: 100vh;
-  background: transparent; /* Light background */
+  background: transparent;
+  /* Light background */
 }
 
 .gallery-title {
@@ -665,6 +716,7 @@ body::before {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -687,7 +739,8 @@ body::before {
 }
 
 
-.signup-form,.login-form input{
-color: black !important;
+.signup-form,
+.login-form input {
+  color: black !important;
 
-  }
+}

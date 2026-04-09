@@ -11,17 +11,15 @@ const progressSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  weight: Number, // in kg or lbs
-  bodyMeasurements: {
-    chest: Number,
-    waist: Number,
-    hips: Number,
-    biceps: Number
-  },
-  performance: {
-    runTime: String,        // e.g., "5km in 25 minutes"
-    liftRecord: String      // e.g., "Bench press 80kg"
-  }
+  weight: Number,
+  bodyFat: Number,
+  muscleMass: Number,
+  chest: Number,
+  waist: Number,
+  hips: Number,
+  biceps: Number,
+  thighs: Number,
+  notes: String
 }, {
   timestamps: true
 });

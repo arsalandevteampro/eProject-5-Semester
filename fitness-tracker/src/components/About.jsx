@@ -8,7 +8,7 @@ const About = () => {
     >
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
         {/* Text Section */}
-        <div className="backdrop-blur-lg bg-white/10 p-8 rounded-2xl shadow-xl border border-white/20 hover:scale-[1.02] transition-transform duration-300">
+        <div className="backdrop-blur-lg bg-white/10 p-8 rounded-2xl shadow-xl hover:scale-[1.02] transition-transform duration-300">
           <h2 className="text-4xl font-bold text-white mb-4">
             About <span className="text-[var(--primary-main)]">FitnessTracker</span>
           </h2>
@@ -25,7 +25,7 @@ const About = () => {
 
         {/* Image Section */}
         <div className="relative group">
-          <div className="overflow-hidden rounded-2xl shadow-2xl border border-white/10">
+          <div className="overflow-hidden rounded-2xl shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=1500&q=80"
               alt="About Fitness Tracker"

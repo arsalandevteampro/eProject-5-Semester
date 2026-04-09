@@ -11,10 +11,12 @@ const workoutSchema = new mongoose.Schema({
   category: { type: String, enum: ['strength', 'cardio'], required: true },
   exercises: [
     {
-      name: { type: String, required: true },       // e.g., "Squats"
-      sets: { type: Number, required: true },
-      reps: { type: Number, required: true },
-      weight: { type: Number },                     // optional for cardio
+      name: { type: String, required: true },       // e.g., "Squats" or "Running"
+      sets: { type: Number },                        // optional for cardio
+      reps: { type: Number },                        // optional for cardio
+      weight: { type: Number },                      // optional for cardio
+      duration: { type: Number },                    // for cardio (minutes)
+      distance: { type: Number },                    // for cardio (km/mi)
       notes: { type: String }
     }
   ]

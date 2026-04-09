@@ -111,26 +111,23 @@ export default function UserProfile() {
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
-    
-    if (window.confirm('Are you absolutely sure? This action cannot be undone and will delete all your data permanently.')) {
-      try {
-        const token = getToken();
-        await axios.delete('http://localhost:5000/api/auth/delete-account', {
-          data: { password: deleteData.password },
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        
-        setMessage('Account deleted successfully!');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
-      } catch (error) {
-        setMessage(error.response?.data?.message || 'Error deleting account. Please try again.');
-        setTimeout(() => setMessage(''), 3000);
-      }
+    try {
+      const token = getToken();
+      await axios.delete('http://localhost:5000/api/auth/delete-account', {
+        data: { password: deleteData.password },
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      setMessage('Account deleted successfully!');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Error deleting account. Please try again.');
+      setTimeout(() => setMessage(''), 3000);
     }
   };
 
@@ -173,7 +170,7 @@ export default function UserProfile() {
 
   if (loading) {
     return (
-      <div className="p-6 max-w-4xl mx-auto">
+      <div className="p-6 max-w-7xl mx-auto">
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
           <p className="text-gray-400 mt-4">Loading profile...</p>
@@ -183,7 +180,7 @@ export default function UserProfile() {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-4xl font-extrabold text-white drop-shadow-md">
           User Profile
@@ -191,7 +188,7 @@ export default function UserProfile() {
         {!isEditing && (
           <button
             onClick={() => setIsEditing(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-lg hover:scale-105 active:scale-95"
           >
             Edit Profile
           </button>
@@ -206,7 +203,7 @@ export default function UserProfile() {
         </div>
       )}
 
-      <div className="bg-white/20 backdrop-blur-md rounded-lg shadow-lg p-8">
+      <div className="bg-white/20 backdrop-blur-md rounded-2xl shadow-xl p-8">
         {!isEditing ? (
           // Profile Display Mode
           <div className="space-y-6">
@@ -259,24 +256,26 @@ export default function UserProfile() {
               </div>
             </div>
 
-            <div className="bg-white/10 rounded-lg p-4">
-              <h4 className="text-lg font-semibold text-white mb-3">Quick Actions</h4>
-              <div className="flex flex-wrap gap-3">
+            <div className="bg-white/10 rounded-2xl p-6">
+              <h4 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <span className="text-2xl">⚡</span> Quick Actions
+              </h4>
+              <div className="flex flex-wrap gap-4">
                 <button 
                   onClick={() => setShowExportModal(true)}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  className="bg-green-600/20 hover:bg-green-600 text-green-400 hover:text-white px-6 py-2.5 rounded-xl transition-all font-semibold flex-1 min-w-[150px]"
                 >
                   Export Data
                 </button>
                 <button 
                   onClick={() => setShowPasswordModal(true)}
-                  className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  className="bg-yellow-600/20 hover:bg-yellow-600 text-yellow-400 hover:text-white px-6 py-2.5 rounded-xl transition-all font-semibold flex-1 min-w-[150px]"
                 >
                   Change Password
                 </button>
                 <button 
                   onClick={() => setShowDeleteModal(true)}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                  className="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white px-6 py-2.5 rounded-xl transition-all font-semibold flex-1 min-w-[150px]"
                 >
                   Delete Account
                 </button>
@@ -304,7 +303,7 @@ export default function UserProfile() {
                   placeholder="Profile Picture URL"
                   value={formData.profilePic}
                   onChange={(e) => setFormData(prev => ({ ...prev, profilePic: e.target.value }))}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 text-white placeholder-gray-400"
+                  className="w-full p-3 rounded-xl bg-white/5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
             </div>
@@ -316,7 +315,7 @@ export default function UserProfile() {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 text-white placeholder-gray-400"
+                  className="w-full p-3 rounded-xl bg-white/5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   required
                 />
               </div>
@@ -326,7 +325,7 @@ export default function UserProfile() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 text-white placeholder-gray-400"
+                  className="w-full p-3 rounded-xl bg-white/5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   required
                 />
               </div>
@@ -353,9 +352,9 @@ export default function UserProfile() {
 
       {/* Change Password Modal */}
       {showPasswordModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white/20 backdrop-blur-md rounded-lg shadow-lg p-8 max-w-md w-full mx-4">
-            <h3 className="text-2xl font-semibold text-white mb-6">Change Password</h3>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+            <h3 className="text-2xl font-bold text-white tracking-wide mb-6">Change Password</h3>
             <form onSubmit={handlePasswordChange} className="space-y-4">
               <div>
                 <label className="block text-white font-medium mb-2">Current Password</label>
@@ -363,7 +362,7 @@ export default function UserProfile() {
                   type="password"
                   value={passwordData.currentPassword}
                   onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 text-white placeholder-gray-400"
+                  className="w-full p-3 rounded-xl bg-white/5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
                   required
                 />
               </div>
@@ -373,7 +372,7 @@ export default function UserProfile() {
                   type="password"
                   value={passwordData.newPassword}
                   onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 text-white placeholder-gray-400"
+                  className="w-full p-3 rounded-xl bg-white/5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
                   required
                   minLength="6"
                 />
@@ -384,7 +383,7 @@ export default function UserProfile() {
                   type="password"
                   value={passwordData.confirmPassword}
                   onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 text-white placeholder-gray-400"
+                  className="w-full p-3 rounded-xl bg-white/5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
                   required
                   minLength="6"
                 />
@@ -414,9 +413,9 @@ export default function UserProfile() {
 
       {/* Delete Account Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white/20 backdrop-blur-md rounded-lg shadow-lg p-8 max-w-md w-full mx-4">
-            <h3 className="text-2xl font-semibold text-red-400 mb-6">Delete Account</h3>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+            <h3 className="text-2xl font-bold text-red-500 tracking-wide mb-6">Delete Account</h3>
             <p className="text-gray-300 mb-6">
               This action cannot be undone. All your data including workouts, nutrition logs, and progress will be permanently deleted.
             </p>
@@ -427,7 +426,7 @@ export default function UserProfile() {
                   type="password"
                   value={deleteData.password}
                   onChange={(e) => setDeleteData(prev => ({ ...prev, password: e.target.value }))}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white/10 text-white placeholder-gray-400"
+                  className="w-full p-3 rounded-xl bg-white/5 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all outline-none"
                   required
                 />
               </div>
@@ -456,9 +455,9 @@ export default function UserProfile() {
 
       {/* Export Data Modal */}
       {showExportModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white/20 backdrop-blur-md rounded-lg shadow-lg p-8 max-w-md w-full mx-4">
-            <h3 className="text-2xl font-semibold text-white mb-6">Export Your Data</h3>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+            <h3 className="text-2xl font-bold text-white tracking-wide mb-6">Export Your Data</h3>
             <p className="text-gray-300 mb-6">
               Choose a format to export all your fitness data including workouts, nutrition logs, and progress tracking.
             </p>

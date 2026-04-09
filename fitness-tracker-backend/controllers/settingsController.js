@@ -14,12 +14,12 @@ const getSettings = async (req, res) => {
 
 const updateSettings = async (req, res) => {
   try {
-    const { notifications, units, privacy, theme } = req.body;
+    const { notifications, units, privacy, theme, dailyGoals } = req.body;
     
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       { 
-        settings: { notifications, units, privacy, theme }
+        settings: { notifications, units, privacy, theme, dailyGoals }
       },
       { new: true, runValidators: true }
     ).select('settings');
@@ -43,7 +43,13 @@ const getDefaultSettings = () => {
     units: {
       weight: 'kg',
       height: 'cm',
-      distance: 'km'
+      distance: 'km',
+      measurements: 'cm'
+    },
+    dailyGoals: {
+      calories: 2000,
+      weeklyWorkouts: 5,
+      streakGoal: 30
     },
     privacy: {
       profileVisibility: 'public',
